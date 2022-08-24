@@ -1,0 +1,128 @@
+{
+  "version": "1.0",
+  "tasks": [
+    {
+      "taskType": "trigger",
+      "capabilityId": "IssueResponder",
+      "subCapability": "IssuesOnlyResponder",
+      "version": "1.0",
+      "config": {
+        "conditions": {
+          "operator": "and",
+          "operands": [
+            {
+              "name": "isAction",
+              "parameters": {
+                "action": "opened"
+              }
+            }
+          ]
+        },
+        "eventType": "issue",
+        "eventNames": [
+          "issues",
+          "project_card"
+        ],
+        "taskName": "greeting",
+        "actions": [
+          {
+            "name": "addReply",
+            "parameters": {
+              "comment": "Hello, ${issueAuthor}"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "taskType": "trigger",
+      "capabilityId": "IssueResponder",
+      "subCapability": "IssuesOnlyResponder",
+      "version": "1.0",
+      "config": {
+        "conditions": {
+          "operator": "and",
+          "operands": [
+            {
+              "name": "labelAdded",
+              "parameters": {
+                "label": "bug"
+              }
+            }
+          ]
+        },
+        "eventType": "issue",
+        "eventNames": [
+          "issues",
+          "project_card"
+        ],
+        "taskName": "add bug reaction",
+        "actions": [
+          {
+            "name": "addReply",
+            "parameters": {
+              "comment": "add bug. "
+            }
+          },
+          {
+            "name": "addReactionToIssue",
+            "parameters": {
+              "reaction": "rocket"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "taskType": "trigger",
+      "capabilityId": "IssueResponder",
+      "subCapability": "IssuesOnlyResponder",
+      "version": "1.0",
+      "config": {
+        "conditions": {
+          "operator": "and",
+          "operands": [
+            {
+              "name": "isAction",
+              "parameters": {
+                "action": "opened"
+              }
+            },
+            {
+              "name": "bodyContains",
+              "parameters": {
+                "bodyPattern": "API call to Developer Portal failed: Error, Request failed with status code \\d{3}, API name: (.*), X-Correlation-ID: (.*).",
+                "isRegex": true
+              }
+            }
+          ]
+        },
+        "eventType": "issue",
+        "eventNames": [
+          "issues",
+          "project_card"
+        ],
+        "taskName": "handle DPT issue",
+        "actions": [
+          {
+            "name": "addReply",
+            "parameters": {
+              "comment": "This is a DPT issue."
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "userGroups": [
+    {
+      "_id": "60f7bfa29698af2618ea805a",
+      "groupType": "GitHub",
+      "name": "Neo",
+      "githubUserNames": [
+        "xzf0587"
+      ],
+      "description": "test group"
+    }
+  ]
+}
